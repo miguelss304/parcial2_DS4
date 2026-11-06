@@ -6,17 +6,9 @@ import java.util.Queue;
 
 public class ArbolGeneral {
     private static class Node {
-        int id;
-        String nombre;
-        int prioridad;          // 1 a 10, 10 = mayor urgencia
-        boolean cancelado;      // false = pendiente
+        Registro reg;
         List<Node> hijos = new ArrayList<>();
-
-        Node(int id, String nombre, int prioridad) { // Constructor
-            this.id = id;
-            this.nombre = nombre;
-            this.prioridad = prioridad;
-        }
+        Node(Registro reg) { this.reg = reg; } // Constructor
     }
 
     private Node root;
@@ -28,7 +20,7 @@ public class ArbolGeneral {
     // Busca un nodo por id en todo el arbol
     private Node find(Node p, int id) {
         if (p == null) return null;
-        if (p.id == id) return p;
+        if (p.reg.id == id) return p;
         for (Node h : p.hijos) {
             Node r = find(h, id);
             if (r != null) return r;
@@ -37,10 +29,9 @@ public class ArbolGeneral {
     }
 
     // idPadre = 0 significa que el registro es la raiz
-    public void agregarHijo(int id, String nombre, int prioridad, int idPadre) {
-        if (prioridad < 1 || prioridad > 10) throw new IllegalArgumentException("Prioridad de 1 a 10");
-        if (find(root, id) != null) throw new IllegalArgumentException("Id repetido");
-        Node nuevo = new Node(id, nombre, prioridad);
+    public void agregarHijo(Registro r, int idPadre) {
+        if (find(root, r.id) != null) throw new IllegalArgumentException("Id repetido");
+        Node nuevo = new Node(r);
         if (idPadre == 0) {
             if (root != null) throw new IllegalStateException("Ya existe la raiz");
             root = nuevo;
@@ -57,8 +48,8 @@ public class ArbolGeneral {
     }
     private void preorden(Node p) {
         if (p == null) return;
-        System.out.print(p.id + " ");          // primero el nodo
-        for (Node h : p.hijos) preorden(h);    // Imprime el arreglo de los hijos
+        System.out.print(p.reg.id + " ");      // primero el nodo
+        for (Node h : p.hijos) preorden(h);    // despues los hijos
     }
 
     public void postorden() {
@@ -68,7 +59,7 @@ public class ArbolGeneral {
     private void postorden(Node p) {
         if (p == null) return;
         for (Node h : p.hijos) postorden(h);   // primero los hijos
-        System.out.print(p.id + " ");          // despues el nodo
+        System.out.print(p.reg.id + " ");      // despues el nodo
     }
 
     public void porNiveles() {
@@ -77,7 +68,7 @@ public class ArbolGeneral {
         cola.add(root);
         while (!cola.isEmpty()) {
             Node p = cola.poll();
-            System.out.print(p.id + " ");
+            System.out.print(p.reg.id + " ");
             cola.addAll(p.hijos);
         }
         System.out.println();
@@ -87,7 +78,7 @@ public class ArbolGeneral {
     private int height(Node p) {
         if (p == null) return -1;              // arbol vacio
         int max = -1;                          // sin hijos: -1 + 1 = 0
-        for (Node h : p.hijos) max = Math.max(max, height(h)); 
+        for (Node h : p.hijos) max = Math.max(max, height(h));
         return 1 + max;
     }
 
@@ -108,13 +99,30 @@ public class ArbolGeneral {
     }
     private int cancelar(Node p) {
         int total = 0;
-        if (!p.cancelado) {                    // solo si estaba pendiente
-            p.cancelado = true;
+        if (!p.reg.cancelado) {                // solo si estaba pendiente
+            p.reg.cancelado = true;
             total = 1;
         }
         for (Node h : p.hijos) total += cancelar(h);
         return total;
     }
 
+    public static void main(String[] args) {
+        ArbolGeneral t = new ArbolGeneral();
+        t.agregarHijo(new Registro(1, "Proyecto", 8), 0);
+        t.agregarHijo(new Registro(2, "Backend", 7), 1);
+        t.agregarHijo(new Registro(3, "Frontend", 6), 1);
+        t.agregarHijo(new Registro(4, "Docs", 3), 1);
+        t.agregarHijo(new Registro(5, "API", 9), 2);
+        t.agregarHijo(new Registro(6, "BD", 8), 2);
+        t.agregarHijo(new Registro(7, "UI", 5), 3);
 
+        t.preorden();                          // 1 2 5 6 3 7 4
+        t.postorden();                         // 5 6 2 7 3 4 1
+        t.porNiveles();                        // 1 2 3 4 5 6 7
+        System.out.println(t.height());        // 2
+        System.out.println(t.contarHojas());   // 4
+        System.out.println(t.cancelarSubarbol(2)); // 3
+        System.out.println(t.cancelarSubarbol(2)); // 0
+    }
 }
