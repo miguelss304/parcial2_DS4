@@ -23,13 +23,6 @@ public class AVL {
     // factor de balance = altura(izq) - altura(der)
     private int fb(Node p) { return p == null ? 0 : h(p.left) - h(p.right); }
 
-    // ---------- rotaciones ----------
-    // LL: desbalance a la izquierda del hijo izquierdo -> rotacion simple a la derecha
-    //       y             x
-    //      / \           / \
-    //     x   C   -->   A   y
-    //    / \               / \
-    //   A   B             B   C
     private Node rotarDerecha(Node y) {
         Node x = y.left;
         y.left = x.right;
@@ -39,12 +32,6 @@ public class AVL {
         return x;
     }
 
-    // RR: desbalance a la derecha del hijo derecho -> rotacion simple a la izquierda
-    //     x                 y
-    //    / \               / \
-    //   A   y     -->     x   C
-    //      / \           / \
-    //     B   C         A   B
     private Node rotarIzquierda(Node x) {
         Node y = x.right;
         x.right = y.left;
@@ -54,8 +41,6 @@ public class AVL {
         return y;
     }
 
-    // LR: desbalance a la derecha del hijo izquierdo
-    // -> rotacion izquierda sobre el hijo izquierdo (queda LL) y luego derecha sobre p
     private Node rotarLR(Node p) {
         p.left = rotarIzquierda(p.left);
         return rotarDerecha(p);
