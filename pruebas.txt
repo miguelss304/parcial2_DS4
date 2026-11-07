@@ -1,0 +1,173 @@
+PRUEBAS - EXAMEN 02 - ESTRUCTURAS DE DATOS
+
+Casos A, B y C: se ejecutan con Main leyendo los comandos de un archivo.
+Casos D, E y F: se ejecutan con la clase PruebasEstructuras.
+
+======================================================================
+=== CASO A: Integracion completa ===
+======================================================================
+ENTRADA:
+REGISTRAR 10 A 2 0
+REGISTRAR 20 B 5 10
+REGISTRAR 30 C 3 10
+CONSULTAR 20
+SIGUIENTE
+CANCELAR 10
+REPORTE
+ESTADISTICAS
+
+SALIDA OBTENIDA:
+OK: registro 10
+OK: registro 20
+OK: registro 30
+ID=20 NOMBRE=B PRIORIDAD=5 PADRE=10 ESTADO=PENDIENTE
+ATENDIDO: 20 (B)
+CANCELADOS: 2
+REPORTE VACIO
+Preorden: 10 20 30
+Postorden: 20 30 10
+Por niveles: 10 20 30
+Altura arbol general: 1
+Hojas: 2
+Altura BST: 2
+Altura AVL: 1
+Pendientes: 0
+
+CONCLUSION: Coincide con lo esperado. Se consulta B (ID 20, prioridad 5,
+PENDIENTE) y SIGUIENTE la atiende. CANCELAR 10 cancela solo A y C
+(2 pendientes) porque B ya estaba ATENDIDO y conserva su estado. El reporte
+queda vacio y hay 0 pendientes. El arbol general conserva los tres nodos:
+preorden 10,20,30; postorden 20,30,10; por niveles 10,20,30; altura 1 y
+dos hojas.
+
+======================================================================
+=== CASO B: Empates de prioridad ===
+======================================================================
+ENTRADA:
+REGISTRAR 50 A 7 0
+REGISTRAR 30 B 7 50
+REGISTRAR 40 C 9 50
+REPORTE
+SIGUIENTE
+SIGUIENTE
+
+SALIDA OBTENIDA:
+OK: registro 50
+OK: registro 30
+OK: registro 40
+40(9) 30(7) 50(7)
+ATENDIDO: 40 (C)
+ATENDIDO: 30 (B)
+
+CONCLUSION: Coincide con lo esperado. El reporte es 40,30,50. El 40 tiene
+prioridad 9 y va primero. El 30 y el 50 empatan en prioridad 7 y gana el 30
+por tener menor ID. El primer SIGUIENTE atiende el 40 y el segundo el 30.
+
+======================================================================
+=== CASO C: Errores de registro ===
+======================================================================
+ENTRADA:
+REGISTRAR 10 A 2 0
+REGISTRAR 10 B 3 10
+REGISTRAR 40 C 5 99
+
+SALIDA OBTENIDA:
+OK: registro 10
+ERROR: ID duplicado (10)
+ERROR: el padre 99 no existe
+
+CONCLUSION: Coincide con lo esperado. Se acepta el primer registro, se
+rechaza el segundo por ID duplicado y el tercero porque el padre 99 no
+existe. Queda un solo registro y los errores no modificaron ninguna
+estructura.
+
+======================================================================
+=== CASO D: Rotaciones AVL (cuatro pruebas independientes) ===
+======================================================================
+ENTRADA (inserciones en un AVL vacio, una prueba por fila):
+LL: 30, 20, 10
+RR: 10, 20, 30
+LR: 30, 10, 20
+RL: 10, 30, 20
+
+SALIDA OBTENIDA:
+Caso D (LL): inserciones 30, 20, 10
+  raiz: esperado=20 obtenido=20  -> COINCIDE
+  inorden: esperado=10 20 30 obtenido=10 20 30  -> COINCIDE
+  altura: esperado=1 obtenido=1  -> COINCIDE
+  balanceado: esperado=true obtenido=true  -> COINCIDE
+Caso D (RR): inserciones 10, 20, 30
+  raiz: esperado=20 obtenido=20  -> COINCIDE
+  inorden: esperado=10 20 30 obtenido=10 20 30  -> COINCIDE
+  altura: esperado=1 obtenido=1  -> COINCIDE
+  balanceado: esperado=true obtenido=true  -> COINCIDE
+Caso D (LR): inserciones 30, 10, 20
+  raiz: esperado=20 obtenido=20  -> COINCIDE
+  inorden: esperado=10 20 30 obtenido=10 20 30  -> COINCIDE
+  altura: esperado=1 obtenido=1  -> COINCIDE
+  balanceado: esperado=true obtenido=true  -> COINCIDE
+Caso D (RL): inserciones 10, 30, 20
+  raiz: esperado=20 obtenido=20  -> COINCIDE
+  inorden: esperado=10 20 30 obtenido=10 20 30  -> COINCIDE
+  altura: esperado=1 obtenido=1  -> COINCIDE
+  balanceado: esperado=true obtenido=true  -> COINCIDE
+
+CONCLUSION: Coincide con lo esperado. En los cuatro casos la raiz final es
+20, el inorden es 10,20,30, la altura es 1 y el arbol queda balanceado.
+Rotaciones realizadas:
+ - LL (30,20,10): el 30 queda con factor +2 y su hijo izquierdo pesa a la
+   izquierda. Una rotacion derecha en 30.
+ - RR (10,20,30): el 10 queda con factor -2 y su hijo derecho pesa a la
+   derecha. Una rotacion izquierda en 10.
+ - LR (30,10,20): el 30 queda con factor +2 y su hijo izquierdo (10) pesa a
+   la derecha. Dos rotaciones: izquierda en 10 y luego derecha en 30.
+ - RL (10,30,20): el 10 queda con factor -2 y su hijo derecho (30) pesa a
+   la izquierda. Dos rotaciones: derecha en 30 y luego izquierda en 10.
+
+======================================================================
+=== CASO E: BST frente a AVL ===
+======================================================================
+ENTRADA:
+Insertar las claves 1,2,3,4,5,6,7 (en ese orden) en un BST vacio y en un
+AVL vacio. Despues eliminar la clave 4 de ambos.
+
+SALIDA OBTENIDA:
+Caso E: claves 1..7
+  altura BST: esperado=6 obtenido=6  -> COINCIDE
+  altura AVL: esperado=2 obtenido=2  -> COINCIDE
+  inorden BST: esperado=1 2 3 4 5 6 7 obtenido=1 2 3 4 5 6 7  -> COINCIDE
+  inorden AVL: esperado=1 2 3 4 5 6 7 obtenido=1 2 3 4 5 6 7  -> COINCIDE
+  -- despues de eliminar la clave 4 --
+  buscar(4) en BST es null: esperado=true obtenido=true  -> COINCIDE
+  buscar(4) en AVL es null: esperado=true obtenido=true  -> COINCIDE
+  inorden BST: esperado=1 2 3 5 6 7 obtenido=1 2 3 5 6 7  -> COINCIDE
+  inorden AVL: esperado=1 2 3 5 6 7 obtenido=1 2 3 5 6 7  -> COINCIDE
+  AVL balanceado: esperado=true obtenido=true  -> COINCIDE
+
+CONCLUSION: Coincide con lo esperado. Al insertar claves ordenadas, el BST
+se degenera en una lista (altura 6) mientras que el AVL se rebalancea con
+rotaciones (altura 2). Ambos tienen inorden 1..7. Tras eliminar la clave 4
+ya no aparece en la busqueda ni en el inorden, y el AVL sigue balanceado.
+
+======================================================================
+=== CASO F: Heap y Heap-Sort ===
+======================================================================
+ENTRADA:
+Max-heap construido insertando las prioridades [4,10,3,5,1,8,9,2]
+(IDs 1 a 8, todos distintos).
+
+SALIDA OBTENIDA:
+Caso F: prioridades [4,10,3,5,1,8,9,2]
+  arreglo interno del heap: [10, 5, 9, 4, 1, 3, 8, 2]
+  raiz: esperado=10 obtenido=10  -> COINCIDE
+  Heap-Sort ascendente: esperado=[1, 2, 3, 4, 5, 8, 9, 10] obtenido=[1, 2, 3, 4, 5, 8, 9, 10]  -> COINCIDE
+  heap intacto tras Heap-Sort: esperado=[10, 5, 9, 4, 1, 3, 8, 2] obtenido=[10, 5, 9, 4, 1, 3, 8, 2]  -> COINCIDE
+  raiz tras extraer: esperado=9 obtenido=9  -> COINCIDE
+
+CONCLUSION: Coincide con lo esperado. La raiz inicial tiene prioridad 10 y
+al extraerla la nueva raiz tiene prioridad 9. Heap-Sort ascendente produce
+[1,2,3,4,5,8,9,10] y el heap original queda intacto porque se ordena una
+copia.
+
+======================================================================
+RESUMEN: los seis casos (A-F) coinciden con lo esperado.
