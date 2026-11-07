@@ -2,7 +2,8 @@ public class Registro {
     public final int id;            // clave del arbol
     public final String nombre;
     public final int prioridad;     // 1 a 10, 10 = mayor urgencia
-    public boolean cancelado;       // false = pendiente (la usa ArbolGeneral)
+    public enum Estado { PENDIENTE, ATENDIDO,CANCELADO };  // false = pendiente (la usa ArbolGeneral)
+    public Estado estado;
 
     public Registro(int id, String nombre, int prioridad) {
         if (prioridad < 1 || prioridad > 10) throw new IllegalArgumentException("Prioridad de 1 a 10");
@@ -13,6 +14,6 @@ public class Registro {
 
     @Override
     public String toString() {
-        return "#" + id + " " + nombre + " (p=" + prioridad + ")";
+        return "#" + id + " " + nombre + " (p=" + prioridad + ")" + estado;
     }
 }
