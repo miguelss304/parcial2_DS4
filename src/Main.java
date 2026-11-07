@@ -1,6 +1,8 @@
 public class Main {
     public static void main(String[] args) {
         //Ejemplos de uso en heap y arbol general
+        HeapSort heap = new HeapSort();
+        ArbolGeneral arbolGeneral = new ArbolGeneral();
         
         // O3 SIGUIENTE
         if (heap.isEmpty()) System.out.println("SIN PENDIENTES");
