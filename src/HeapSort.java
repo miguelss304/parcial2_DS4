@@ -68,6 +68,17 @@ public class HeapSort {
         return b;
     }
 
+        // Deja en el heap solo los PENDIENTE y reconstruye el heap
+    public void quitarNoPendientes() {
+        int j = 0;
+        for (int i = 0; i < size; i++)
+            if (a[i].estado == Registro.Estado.PENDIENTE) a[j++] = a[i];
+        for (int i = j; i < size; i++) a[i] = null;
+        size = j;
+        for (int i = size / 2 - 1; i >= 0; i--)   // heapify de abajo hacia arriba
+            siftDown(a, i, size);
+    }
+
     // Prioridades en el orden del arreglo interno
     @Override
     public String toString() {

@@ -99,11 +99,11 @@ public class ArbolGeneral {
     }
     private int cancelar(Node p) {
         int total = 0;
-        if (!p.reg.cancelado) {                // solo si estaba pendiente
-            p.reg.cancelado = true;
+        if (p.reg.estado == Registro.Estado.PENDIENTE) {   // los ATENDIDO conservan su estado
+            p.reg.estado = Registro.Estado.CANCELADO;
             total = 1;
         }
-        for (Node h : p.hijos) total += cancelar(h);
+        for (Node h : p.hijos) total += cancelar(h);       // siempre baja a los hijos
         return total;
     }
 
