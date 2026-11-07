@@ -20,40 +20,25 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-        System.out.println("Bienvenido al sistema de gestión de registros.");
-        System.out.println("Por favor, seleccione una opción del menú:");
-        System.out.println("1. Insertar un registro");
-        System.out.println("2. Eliminar un registro");
-        System.out.println("3. Buscar un registro");
-        System.out.println("4. Mostrar todos los registros");
-        System.out.println("5. Salir");
-
-        int opcion = inputOpcion();
-
-        switch (opcion) {
-            case 1:
-                // Lógica para insertar un registro
-                System.out.println("Insertando un registro...");
-                break;
-            case 2:
-                // Lógica para eliminar un registro
-                System.out.println("Eliminando un registro...");
-                break;
-            case 3:
-                // Lógica para buscar un registro
-                System.out.println("Buscando un registro...");
-                break;
-            case 4:
-                // Lógica para mostrar todos los registros
-                System.out.println("Mostrando todos los registros...");
-                break;
-            case 5:
-                // Lógica para salir del programa
-                System.out.println("Saliendo del programa...");
-                break;
-            default:
-                System.out.println("Opción no válida.");
-                break;
+        //Ejemplos de uso en heap y arbol general
+        HeapSort heap = new HeapSort();
+        ArbolGeneral arbolGeneral = new ArbolGeneral();
+        
+        // O3 SIGUIENTE
+        if (heap.isEmpty()) System.out.println("SIN PENDIENTES");
+        else {
+            Registro r = heap.extractMax();
+            r.estado = Registro.Estado.ATENDIDO;
+            System.out.println(r);
         }
+
+        // O4 CANCELAR id
+        int n = arbolGeneral.cancelarSubarbol(id);
+        heap.quitarNoPendientes();
+        System.out.println(n + " cancelados");
+
+        // O5 REPORTE: heapSort() es ascendente, el orden de atención es de mayor a menor
+        Registro[] v = heap.heapSort();
+        for (int i = v.length - 1; i >= 0; i--) System.out.println(v[i]);
     }
 }
