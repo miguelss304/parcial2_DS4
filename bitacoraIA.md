@@ -48,6 +48,8 @@ También se empleó para revisar la claridad de las explicaciones, proponer ajus
 - **Herramienta utilizada:** Inteligencia artificial Copilot Free integrada de Visual Studio.
 - **Actividad:** Correcciones de sintaxis del código y orden del mismo.
 - **Objetivo:** Mantener la logica del lenguaje de programacion.
+
+
 **Descripción del uso:**
 La inteligencia artificial se encargo de mantener la sintaxis general del código, de simplificar códigos y recomendar las opciones lógicas del codigo, sirvio bastante para mantener la logica del lenguaje 
 
