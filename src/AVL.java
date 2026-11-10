@@ -13,14 +13,12 @@ public class AVL {
         return root == null;
     }
 
-    // ---------- utilidades de altura y balance ----------
     private int h(Node p) { return p == null ? -1 : p.height; } // vacio = -1
 
     private void actualizar(Node p) {
         p.height = 1 + Math.max(h(p.left), h(p.right));
     }
 
-    // factor de balance = altura(izq) - altura(der)
     private int fb(Node p) { return p == null ? 0 : h(p.left) - h(p.right); }
 
     private Node rotarDerecha(Node y) {
