@@ -26,12 +26,6 @@ La IA recomendó considerar el uso de una estructura tipo cola (*Queue*) para la
 - Ayudó a comprender diferentes posibilidades de organización de los nodos.
 - Sirvió como punto de partida para discutir y evaluar el diseño de la estructura.
 
-**Intervención humana:**
-
-La recomendación fue analizada por los integrantes del equipo, quienes debían evaluar si el uso de una cola se ajustaba a los requerimientos del proyecto y a las operaciones necesarias del árbol.
-
----
-
 ### Caso 2. Diseño y organización de un documento en LaTeX
 
 - **Herramienta utilizada:** Inteligencia artificial integrada en Prism.
@@ -45,9 +39,18 @@ Se utilizó la inteligencia artificial integrada en Prism como apoyo durante la 
 También se empleó para revisar la claridad de las explicaciones, proponer ajustes en la distribución de la información y facilitar la construcción de un documento con una presentación más ordenada y coherente.
 
 **Aporte de la IA:**
-
 - Sugirió una organización más clara de las secciones.
 - Ayudó a mejorar la redacción y coherencia de los textos.
 - Facilitó la estructuración del documento mediante LaTeX.
 - Permitió identificar oportunidades de mejora en la presentación del contenido.
+
+### Caso 3. Recomendaciones "Fantasma" para el codigo
+- **Herramienta utilizada:** Inteligencia artificial Copilot Free integrada de Visual Studio.
+- **Actividad:** Correcciones de sintaxis del código y orden del mismo.
+- **Objetivo:** Mantener la logica del lenguaje de programacion.
+**Descripción del uso:**
+La inteligencia artificial se encargo de mantener la sintaxis general del código, de simplificar códigos y recomendar las opciones lógicas del codigo, sirvio bastante para mantener la logica del lenguaje 
+
+
+
 
